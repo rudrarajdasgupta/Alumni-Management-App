@@ -80,35 +80,43 @@ Register: POST /api/auth/register
 
 Request Body:
  
- ```JSON{
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "password": "string",
   "role": "string (admin, hr, employee)",
   "company_id": "integer"
-}```
+}
+```
 
 Response:
  
  
- ```JSON{
+ ```JSON
+{
   "message": "User registered successfully"
-}```
+}
+```
 Login: POST /api/auth/login
 
 Request Body:
  
  
- ```JSON{
+ ```JSON
+{
   "username": "string",
   "password": "string"
-}```
+}
+```
 Response:
  
  
- ```JSON{
+ ```
+JSON{
   "access_token": "string"
-}```
+}
+```
 
 ### Admins
 
@@ -116,155 +124,182 @@ Get All Admins: GET /api/admins
 
 Response:
  
- 
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "username": "string",
     "email": "string",
     "company_id": "integer",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
+
 Create Admin: POST /api/admins
 
 Request Body:
  
  
- ```JSON{
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string"
-}```
+}
+```
 Response:
  
  
- ```JSON{
+ ```JSON
+{
   "message": "Admin created successfully"
-}```
+}
+```
+
 Get Admin by ID: GET /api/admins/{id}
 
 Response:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "id": "integer",
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "created_at": "datetime",
   "updated_at": "datetime"
-}```
+}
+```
+
 Update Admin by ID: PUT /api/admins/{id}
 
 Request Body:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string"
-}```
-Response:
- 
- 
- ```JSON{
-  "message": "Admin updated successfully"
-}```
-Delete Admin by ID: DELETE /api/admins/{id}
+}
+```
 
 Response:
+  
+ ```JSON
+{
+  "message": "Admin updated successfully"
+}
+```
+
+Delete Admin by ID: DELETE /api/admins/{id}
+
+Response: 
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "Admin deleted successfully"
-}```
+}
+```
 
 ### HRs
 
 Get All HRs: GET /api/hrs
 
-Response:
- 
- 
+Response: 
+
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "username": "string",
     "email": "string",
     "company_id": "integer",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
+
 Create HR: POST /api/hrs
 
 Request Body:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string"
-}```
-Response:
+}
+```
+
+Response: 
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "HR created successfully"
-}```
+}
+```
+
 Get HR by ID: GET /api/hrs/{id}
 
 Response:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "id": "integer",
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "created_at": "datetime",
   "updated_at": "datetime"
-}```
+}
+```
+
 Update HR by ID: PUT /api/hrs/{id}
 
 Request Body:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string"
-}```
-Response:
- 
- 
- ```JSON{
-  "message": "HR updated successfully"
-}```
-Delete HR by ID: DELETE /api/hrs/{id}
+}
+```
 
 Response:
+  
+ ```JSON
+{
+  "message": "HR updated successfully"
+}
+```
+
+Delete HR by ID: DELETE /api/hrs/{id}
+
+Response: 
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "HR deleted successfully"
-}```
+}
+```
 
 ### Employees
 
 Get All Employees: GET /api/employees
 
 Response:
- 
- 
+
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "username": "string",
     "email": "string",
@@ -273,33 +308,38 @@ Response:
     "last_working_date": "datetime",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
 Create Employee: POST /api/employees
 
 Request Body:
  
- 
- ```JSON{
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string",
   "joining_date": "datetime",
   "last_working_date": "datetime"
-}```
+}
+```
+
 Response:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "message": "Employee created successfully"
-}```
+}
+```
+
 Get Employee by ID: GET /api/employees/{id}
 
 Response:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "id": "integer",
   "username": "string",
   "email": "string",
@@ -308,89 +348,109 @@ Response:
   "last_working_date": "datetime",
   "created_at": "datetime",
   "updated_at": "datetime"
-}```
+}
+```
+
 Update Employee by ID: PUT /api/employees/{id}
 
 Request Body:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "username": "string",
   "email": "string",
   "company_id": "integer",
   "password": "string",
   "joining_date": "datetime",
   "last_working_date": "datetime"
-}```
-Response:
+}
+```
+
+Response: 
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "Employee updated successfully"
-}```
+}
+```
 Delete Employee by ID: DELETE /api/employees/{id}
 
-Response:
+Response: 
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "Employee deleted successfully"
-}```
+}
+```
 
 ### Companies
 
 Get All Companies: GET /api/companies
 
 Response:
- 
- 
+
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "name": "string",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
+
 Create Company: POST /api/companies
 
 Request Body:
  
- 
- ```JSON{
+ ```JSON
+{
   "name": "string"
-}```
+}
+```
+
 Response:
  
- 
- ```JSON{
+ ```JSON
+{
   "message": "Company created successfully"
-}```
+}
+```
+
 Get Company by ID: GET /api/companies/{id}
 
 Response:
  
  
- ```JSON{
+ ```JSON
+{
   "id": "integer",
   "name": "string",
   "created_at": "datetime",
   "updated_at": "datetime"
-}```
+}
+```
+
 Update Company by ID: PUT /api/companies/{id}
 
 Request Body:
  
  
- ```JSON{
+ ```JSON
+{
   "name": "string"
-}```
+}
+```
+
 Response:
- 
- 
- ```JSON{
+  
+ ```JSON
+{
   "message": "Company updated successfully"
-}```
+}
+```
+
 Delete Company by ID: DELETE /api/companies/{id}
 
 Response:
@@ -398,29 +458,33 @@ Response:
  
  ```JSON{
   "message": "Company deleted successfully"
-}```
+}
+```
+
 Get HRs by Company ID: GET /api/companies/ ```JSON{company_id}```/hrs
 
 Response:
  
- 
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "username": "string",
     "email": "string",
     "company_id": "integer",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
+
 Get Employees by Company ID: GET /api/companies/ ```JSON{company_id}```/employees
 
 Response:
  
- 
+```JSON
 [
-   ```JSON{
+   {
     "id": "integer",
     "username": "string",
     "email": "string",
@@ -429,8 +493,10 @@ Response:
     "last_working_date": "datetime",
     "created_at": "datetime",
     "updated_at": "datetime"
-  }```
+  }
 ]
+```
+
 ## Usage
 ### Register a User:
 
