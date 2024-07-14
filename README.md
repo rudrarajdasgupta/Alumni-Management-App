@@ -62,7 +62,13 @@ FLASK_APP=app.py
 FLASK_ENV=development
 SECRET_KEY=your_secret_key
 JWT_SECRET_KEY=your_jwt_secret_key
-SQLALCHEMY_DATABASE_URI=sqlite:///alumni.db
+SQLALCHEMY_DATABASE_URI=sqlite:///../alumni.db
+AWS_ACCESS_KEY_ID=key1
+AWS_SECRET_ACCESS_KEY=key2
+AWS_REGION=us-east-1
+DYNAMODB_FILE_MANAGEMENT_TABLE_NAME=file_urls
+DYNAMODB_CONFIG_TABLE_NAME=company_config
+ENDPOINT_URL=http://localhost:8000
 ```
 
 Initialize the database:
