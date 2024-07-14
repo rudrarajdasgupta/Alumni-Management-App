@@ -20,6 +20,14 @@ This is an API for managing alumni, admins, HRs, and companies. It is built usin
     - [Register a User:](#register-a-user)
     - [Login:](#login)
     - [Manage Admins, HRs, Employees, and Companies:](#manage-admins-hrs-employees-and-companies)
+    - [File Management](#file-management)
+    - [Company Configuration](#company-configuration)
+- [DynamoDB REST APIs example](#dynamodb-rest-apis-example)
+    - [Run DynamoDB](#run-dynamodb)
+    - [Show Tables](#show-tables)
+    - [Create Table via App](#create-table-via-app)
+    - [View Table](#view-table)
+    - [Delete Table](#delete-table)
 
 ## Requirements
 
@@ -497,6 +505,289 @@ Response:
 ]
 ```
 
+Companies
+Get All Companies: GET /api/companies
+Response:
+
+```JSON
+[
+  {
+    "id": "integer",
+    "name": "string",
+    "created_at": "datetime",
+    "updated_at": "datetime"
+  }
+]
+```
+
+Create Company: POST /api/companies
+Request Body:
+
+```JSON
+{
+  "name": "string"
+}
+```
+
+Response:
+
+```JSON
+{
+  "message": "Company created successfully"
+}
+```
+
+Get Company by ID: GET /api/companies/{id}
+Response:
+
+```JSON
+{
+  "id": "integer",
+  "name": "string",
+  "created_at": "datetime",
+  "updated_at": "datetime"
+}
+```
+
+Update Company by ID: PUT /api/companies/{id}
+Request Body:
+
+```JSON
+{
+  "name": "string"
+}
+```
+
+Response:
+
+```JSON
+{
+  "message": "Company updated successfully"
+}
+```
+
+Delete Company by ID: DELETE /api/companies/{id}
+Response:
+
+```JSON
+{
+  "message": "Company deleted successfully"
+}
+```
+
+File Management
+Create DynamoDB Table for Files: POST /api/files/create-table
+Response:
+
+```JSON
+{
+  "message": "Table created successfully"
+}
+```
+
+Upload File URL: POST /api/files/upload-url
+Request Body:
+
+```JSON
+{
+  "company_id": "string",
+  "employee_id": "string",
+  "file_url": "string",
+  "file_type": "string"
+}
+```
+
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "employee_id": "string",
+  "files": [
+    {
+      "file_url": "string",
+      "file_type": "string",
+      "uploaded_by": "string",
+      "uploaded_date": "datetime"
+    }
+  ]
+}
+```
+
+Get File Details: GET /api/files/{company_id}/{employee_id}
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "employee_id": "string",
+  "files": [
+    {
+      "file_url": "string",
+      "file_type": "string",
+      "uploaded_by": "string",
+      "uploaded_date": "datetime"
+    }
+  ]
+}
+```
+
+Update File Details: PUT /api/files/{company_id}/{employee_id}
+Request Body:
+
+```JSON
+{
+  "file_url": "string",
+  "file_type": "string",
+  "index": "integer"
+}
+```
+
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "employee_id": "string",
+  "files": [
+    {
+      "file_url": "string",
+      "file_type": "string",
+      "uploaded_by": "string",
+      "uploaded_date": "datetime"
+    }
+  ]
+}
+```
+
+Delete File Details: DELETE /api/files/{company_id}/{employee_id}
+Query Parameter:
+
+```JSON
+{
+  "index": "integer"
+}
+```
+
+Response:
+
+```JSON
+{
+  "message": "File deleted successfully"
+}
+```
+
+Company Configuration
+Create DynamoDB Table for Configuration: POST /api/config/create-table
+Response:
+
+```JSON
+{
+  "message": "Configuration table created successfully"
+}
+```
+
+Create Company Configuration: POST /api/config
+Request Body:
+
+```JSON
+{
+  "company_id": "string",
+  "naming_convention": {
+    "FORM16": "regex_for_form16",
+    "PAYSLIP": "regex_for_payslip",
+    "APPOINTMENT_LETTER": "regex_for_appointment_letter",
+    "RELIEVING_LETTER": "regex_for_relieving_letter",
+    "APPRAISAL": "regex_for_appraisal"
+  },
+  "support_hr_ids": ["hr1", "hr2", "hr3"],
+  "upload_hr_ids": ["hr1", "hr4"],
+  "valid_file_types": ["FORM16", "PAYSLIP", "APPOINTMENT_LETTER", "RELIEVING_LETTER", "APPRAISAL"]
+}
+```
+
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "naming_convention": {
+    "FORM16": "regex_for_form16",
+    "PAYSLIP": "regex_for_payslip",
+    "APPOINTMENT_LETTER": "regex_for_appointment_letter",
+    "RELIEVING_LETTER": "regex_for_relieving_letter",
+    "APPRAISAL": "regex_for_appraisal"
+  },
+  "support_hr_ids": ["hr1", "hr2", "hr3"],
+  "upload_hr_ids": ["hr1", "hr4"],
+  "valid_file_types": ["FORM16", "PAYSLIP", "APPOINTMENT_LETTER", "RELIEVING_LETTER", "APPRAISAL"]
+}
+```
+
+Get Company Configuration: GET /api/config/{company_id}
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "naming_convention": {
+    "FORM16": "regex_for_form16",
+    "PAYSLIP": "regex_for_payslip",
+    "APPOINTMENT_LETTER": "regex_for_appointment_letter",
+    "RELIEVING_LETTER": "regex_for_relieving_letter",
+    "APPRAISAL": "regex_for_appraisal"
+  },
+  "support_hr_ids": ["hr1", "hr2", "hr3"],
+  "upload_hr_ids": ["hr1", "hr4"],
+  "valid_file_types": ["FORM16", "PAYSLIP", "APPOINTMENT_LETTER", "RELIEVING_LETTER", "APPRAISAL"]
+}
+```
+
+Update Company Configuration: PUT /api/config/{company_id}
+Request Body:
+
+```JSON
+{
+  "naming_convention": {
+    "FORM16": "regex_for_form16",
+    "PAYSLIP": "regex_for_payslip",
+    "APPOINTMENT_LETTER": "regex_for_appointment_letter",
+    "RELIEVING_LETTER": "regex_for_relieving_letter",
+    "APPRAISAL": "regex_for_appraisal"
+  },
+  "support_hr_ids": ["hr1", "hr2", "hr3"],
+  "upload_hr_ids": ["hr1", "hr4"],
+  "valid_file_types": ["FORM16", "PAYSLIP", "APPOINTMENT_LETTER", "RELIEVING_LETTER", "APPRAISAL"]
+}
+```
+
+Response:
+
+```JSON
+{
+  "company_id": "string",
+  "naming_convention": {
+    "FORM16": "regex_for_form16",
+    "PAYSLIP": "regex_for_payslip",
+    "APPOINTMENT_LETTER": "regex_for_appointment_letter",
+    "RELIEVING_LETTER": "regex_for_relieving_letter",
+    "APPRAISAL": "regex_for_appraisal"
+  },
+  "support_hr_ids": ["hr1", "hr2", "hr3"],
+  "upload_hr_ids": ["hr1", "hr4"],
+  "valid_file_types": ["FORM16", "PAYSLIP", "APPOINTMENT_LETTER", "RELIEVING_LETTER", "APPRAISAL"]
+}
+```
+
+Delete Company Configuration: DELETE /api/config/{company_id}
+Response:
+
+```JSON
+{
+  "message": "Company configuration deleted successfully"
+}
+```
+
 ## Usage
 ### Register a User:
 
@@ -513,3 +804,34 @@ Use the JWT token in the Authorization header with the Bearer scheme to access p
 
 Use the respective CRUD endpoints for managing admins, HRs, employees, and companies.
 Ensure that the appropriate role (admin or HR) is used for accessing specific endpoints.
+
+### File Management
+Use the /api/files endpoints to manage file URLs associated with employees. Only admins and HRs can access these endpoints.
+
+### Company Configuration
+Use the /api/config endpoints to manage configuration settings for each company. Only admins and HRs can access these endpoints.
+
+# DynamoDB REST APIs example
+
+>  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+  
+
+### Run DynamoDB
+
+>  java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+
+### Show Tables
+
+>  aws dynamodb list-tables --endpoint-url http://localhost:8000
+
+### Create Table via App
+
+>  http://localhost:5000/createTable
+
+### View Table
+
+> aws dynamodb scan --table-name Book --endpoint-url http://localhost:8000
+
+### Delete Table
+
+>  aws dynamodb delete-table --table-name Book --endpoint-url http://localhost:8000

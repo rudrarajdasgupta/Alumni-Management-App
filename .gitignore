@@ -42,7 +42,7 @@ instance/
 .pytest_cache/
 
 # Environments
-.env
+#.env
 .venv
 
 # SQLite database files
@@ -114,6 +114,7 @@ celerybeat-schedule
 .venv
 env/
 venv/
+alumvenv/
 ENV/
 env.bak/
 venv.bak/
