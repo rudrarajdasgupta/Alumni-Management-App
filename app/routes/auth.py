@@ -1,26 +1,17 @@
-from flask import request, jsonify
+from flask import request
 from flask_restx import Resource, Namespace
 from ..extensions import db, bcrypt
-from ..models import Admin, HR, Employee, Company
-from ..schemas import user_request_model, user_response_model, register_request_model, hr_request_model, hr_response_model, admin_request_model, admin_response_model, employee_request_model, employee_response_model, company_request_model, company_response_model
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from ..utils import token_required
-from datetime import datetime, timezone
-
+from ..models.admin import Admin
+from ..models.hr import HR
+from ..models.employee import Employee
+from ..schemas.user_schemas import user_request_model, register_request_model
+from flask_jwt_extended import create_access_token
 
 # Create namespaces
 auth_namespace = Namespace('auth', description='Authentication related operations')
 
 def register_auth_routes(api):
     api.add_namespace(auth_namespace)
-
-def is_admin_or_hr():
-    identity = get_jwt_identity()
-    return identity and (identity['role'] == 'admin' or identity['role'] == 'hr')
-
-def is_admin():
-    identity = get_jwt_identity()
-    return identity and identity['role'] == 'admin'
 
 @auth_namespace.route('/register')
 class Register(Resource):
@@ -64,4 +55,3 @@ class Login(Resource):
             access_token = create_access_token(identity={'username': user.username, "id":user.id, 'role': user.__class__.__name__.lower()})
             return {'access_token': access_token}, 200
         return {'message': 'Invalid credentials'}, 401
-

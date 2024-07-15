@@ -28,6 +28,8 @@ def register_apis(app):
     from .routes.employee import register_employee_routes
     from .routes.file_management import register_file_management_routes
     from .routes.company_config import register_config_routes
+    from .routes.service_request import register_service_request_routes
+    from .routes.comment import register_comment_routes
     register_auth_routes(api)
     register_company_routes(api)
     register_admin_routes(api)
@@ -35,3 +37,5 @@ def register_apis(app):
     register_employee_routes(api)
     register_file_management_routes(api)
     register_config_routes(api)
+    register_service_request_routes(api)
+    register_comment_routes(api)

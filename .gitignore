@@ -42,7 +42,7 @@ instance/
 .pytest_cache/
 
 # Environments
-#.env
+.env
 .venv
 
 # SQLite database files

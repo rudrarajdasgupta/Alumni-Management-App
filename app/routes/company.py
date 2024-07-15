@@ -1,12 +1,11 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from ..extensions import db, bcrypt
-from ..models import Admin, HR, Employee, Company
-from ..schemas import user_request_model, user_response_model, register_request_model, hr_request_model, hr_response_model, admin_request_model, admin_response_model, employee_request_model, employee_response_model, company_request_model, company_response_model
+from ..models.company import Company
+from ..schemas.company_schemas import company_request_model, company_response_model
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from ..utils import token_required, is_admin_or_hr, is_admin, is_hr
+from ..utils.utils import token_required, is_admin_or_hr, is_admin, is_hr
 from datetime import datetime, timezone
-
 
 # Create namespaces
 company_namespace = Namespace('companies', description='Company related operations')
@@ -62,4 +61,3 @@ class CompanyResource(Resource):
         db.session.delete(company)
         db.session.commit()
         return {'message': 'Company deleted successfully'}
-

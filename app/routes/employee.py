@@ -1,10 +1,10 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from ..extensions import db, bcrypt
-from ..models import Admin, HR, Employee, Company
-from ..schemas import user_request_model, user_response_model, register_request_model, hr_request_model, hr_response_model, admin_request_model, admin_response_model, employee_request_model, employee_response_model, company_request_model, company_response_model
+from ..models.employee import Employee
+from ..schemas.employee_schemas import employee_request_model, employee_response_model
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from ..utils import token_required, is_admin_or_hr, is_admin, is_hr
+from ..utils.utils import token_required, is_admin_or_hr
 from datetime import datetime, timezone
 from .company import company_namespace
 
@@ -27,8 +27,8 @@ class EmployeeList(Resource):
     @employee_namespace.expect(employee_request_model, validate=True)
     @employee_namespace.doc(description='Create a new employee')
     def post(self):
-        if not is_hr():
-            return {'message': 'HR access required'}, 403
+        if not is_admin_or_hr:
+            return {'message': 'Admin or HR access required'}, 403
         data = request.get_json()
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
         identity=get_jwt_identity()
@@ -58,8 +58,8 @@ class EmployeeResource(Resource):
     @employee_namespace.expect(employee_request_model, validate=True)
     @employee_namespace.doc(description='Update details of a specific employee by ID')
     def put(self, id):
-        if not is_hr():
-            return {'message': 'HR access required'}, 403
+        if not is_admin_or_hr:
+            return {'message': 'Admin or HR access required'}, 403
         data = request.get_json()
         employee = Employee.query.get_or_404(id)
         employee.username = data['username']
@@ -75,7 +75,7 @@ class EmployeeResource(Resource):
     @token_required
     @employee_namespace.doc(description='Delete a specific employee by ID')
     def delete(self, id):
-        if not is_hr():
+        if not is_admin_or_hr:
             return {'message': 'Admin or HR access required'}, 403
         employee = Employee.query.get_or_404(id)
         db.session.delete(employee)

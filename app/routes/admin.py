@@ -1,21 +1,15 @@
-from flask import request, jsonify
+from flask import request
 from flask_restx import Resource, Namespace
 from ..extensions import db, bcrypt
-from ..models import Admin, HR, Employee, Company
-from ..schemas import user_request_model, user_response_model, register_request_model, hr_request_model, hr_response_model, admin_request_model, admin_response_model, employee_request_model, employee_response_model, company_request_model, company_response_model
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from ..utils import token_required
-from datetime import datetime, timezone
-
+from ..models.admin import Admin
+from ..schemas.admin_schemas import admin_request_model, admin_response_model
+from ..utils.utils import token_required
 
 # Create namespaces
 admin_namespace = Namespace('admins', description='Admin related operations')
 
-
 def register_admin_routes(api):
     api.add_namespace(admin_namespace)
-
-
 
 # CRUD Endpoints for Admin
 @admin_namespace.route('')
@@ -67,4 +61,3 @@ class AdminResource(Resource):
         db.session.delete(admin)
         db.session.commit()
         return {'message': 'Admin deleted successfully'}
-

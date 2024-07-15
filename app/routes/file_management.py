@@ -2,9 +2,9 @@ from datetime import datetime
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..utils import token_required, is_admin_or_hr
-from ..file_management_dynamodb_utils import create_dynamodb_table, upload_file_url, get_files, update_file, delete_file
-from ..schemas import file_upload_request_model, file_response_model, file_update_request_model
+from ..utils.utils import token_required, is_admin_or_hr
+from ..utils.file_management_dynamodb_utils import create_dynamodb_table, upload_file_url, get_files, update_file, delete_file
+from ..schemas.file_schemas import file_upload_request_model, file_response_model, file_update_request_model
 
 file_namespace = Namespace('files', description='File operations')
 
